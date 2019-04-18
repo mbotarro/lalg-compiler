@@ -1,0 +1,10 @@
+01 -> ECHO
+02 -> simbolos (substitui)
+03 -> Nova linha e variaveis (com printf, cadeias)
+04 -> Contagem de chars, definição de macros
+05 -> Terminar e começar com caractere 
+06 -> Terminar e começar com caractere usando ^
+07 -> Varios tipos de caracteres, com macros e etc
+08 -> Contagem de palavras, eol e chars
+09 -> Duas cadeias com repetições de partes (a[cd]+ e a[bc]+)
+10 -> Varios tipos de tokens
