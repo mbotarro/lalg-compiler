@@ -1,13 +1,12 @@
-flex:
-	flex lalg.l
-	gcc -g lex.yy.c -lfl -o out
+build:
+	@flex lalg.l
+	@g++ -g lex.yy.c -lfl -o out
 
-lex:
-	lex lalg.l
-	cc lex.yy.c -ll -o out
+test1: build
+	@./out < testes/exemplo1.txt
 
-run:
-	./out
+test2: build
+	@./out < testes/exemplo2.txt
 
-input:
-	./out < input.txt
+test3: build
+	@./out < testes/exemplo3.txt
