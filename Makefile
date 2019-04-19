@@ -1,6 +1,6 @@
 flex:
 	flex lalg.l
-	gcc -g lex.yy.c -lfl -o out
+	g++ -g lex.yy.c -lfl -o out
 
 lex:
 	lex lalg.l
