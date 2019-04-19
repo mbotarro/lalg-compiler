@@ -1,0 +1,6 @@
+VAR: int VAR: a OP: = OP: 3; 
+VAR: int VAR: b OP: = OP: 2; 
+VAR: int VAR: c OP: = OP: 10; 
+VAR: a OP: + VAR: b OP: + VAR: c OP: = OP: d; 
+OP: ++ 
+OP: a; 
