@@ -4,7 +4,9 @@
 using  namespace std; 
 
 enum Tokens{
+    // Auxiliary tokens
     T_EOF = -1,
+    T_ID_OR_RESERV,
 
     // User Tokens
     T_ID,

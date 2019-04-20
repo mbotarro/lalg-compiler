@@ -50,6 +50,7 @@ digito [0-9]
 "/"             { return T_DIV; }
 
  /* variaveis de usuario */
+{letra}{1,16}                       { return T_ID_OR_RESERV; }
 {letra}({letra}|{digito}|_){0,15}   { return T_ID; }
 -?{digito}+                         { return T_NUM_INT; }
 -?{digito}+"."{digito}+             { return T_NUM_REAL; }
@@ -70,8 +71,13 @@ Pair next_token(){
     p.text = yytext;
     p.token = token_type;
 
-    if ( p.token == T_ID && keywords.find(p.text) != keywords.end() ){
-        p.token = keywords[p.text];
+    if ( p.token == T_ID_OR_RESERV){
+        if(keywords.find(p.text) != keywords.end()){
+            p.token = keywords[p.text];
+        }
+        else{
+            p.token = T_ID;
+        }
     }
 
     return p;
