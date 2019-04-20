@@ -12,15 +12,15 @@ enum Tokens{
     T_NUM_REAL,
 
     // Ponctuation Marks
-    T_APAR,
-    T_FPAR,
+    T_ABRE_PAR,
+    T_FECHA_PAR,
     T_PT,
     T_VIR,
     T_DOIS_PTS,
     T_PT_VIR,
 
     // Assignment Operator
-    T_ATR,
+    T_ATRIB,
 
     // Relacional Operators
     T_IGUAL,

@@ -20,22 +20,44 @@ letra [a-zA-Z]
 digito [0-9]
 
 %%
-[ \t\n\f\r]+ { /* printf("whitespace\n"); */ }
-"{".*"}" { } { /* printf("comment\n"); */ }
+ /* espaco vazio / comentario */
+[ \t\n\f\r]+    ;
+"{".*"}"        ;
 
-"." { return T_PT; }
-"," { return T_VIR; }
-":" { return T_DOIS_PTS; }
-";" { return T_PT_VIR; }
-"(" { return T_APAR; }
-")" { return T_FPAR; }
+ /* pontuacao */
+"."             { return T_PT; }
+","             { return T_VIR; }
+":"             { return T_DOIS_PTS; }
+";"             { return T_PT_VIR; }
+"("             { return T_ABRE_PAR; }
+")"             { return T_FECHA_PAR; }
 
-{letra}({letra}|{digito}|_)* { return T_ID; }
--?{digito}+ { return T_NUM_INT; }
--?{digito}+"."{digito}+ { return T_NUM_REAL; }
+ /* atribuicao */
+":="            { return T_ATRIB;}
 
-"-"?{digito}+"."{letra}+{digito}* { return T_ERRO; }
-. { return T_ERRO; }
+ /* operadores relacionais */
+"="             { return T_IGUAL; }
+"<>"            { return T_DIF; }
+">="            { return T_MAIOR_IGUAL; }
+"<="            { return T_MENOR_IGUAL; }
+">"             { return T_MAIOR; }
+"<"             { return T_MENOR; }
+
+ /* operadores aritimeticos */
+"+"             { return T_MAIS; }
+"-"             { return T_MENOS; }
+"*"             { return T_MULT; }
+"/"             { return T_DIV; }
+
+ /* variaveis de usuario */
+{letra}({letra}|{digito}|_){0,15}   { return T_ID; }
+-?{digito}+                         { return T_NUM_INT; }
+-?{digito}+"."{digito}+             { return T_NUM_REAL; }
+
+ /* erros - TODO: CRIAR ERROS ESPECÍFICOS E RETORNAR ELES
+ (T_ERRO_ID, T_ERRO_NUM_REAL, T_ERRO_DESCONHECIDO...) */
+"-"?{digito}+"."{letra}+{digito}*   { return T_ERRO; }
+.                                   { return T_ERRO; }
 
 <<EOF>> { return T_EOF; }
 

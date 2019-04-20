@@ -7,14 +7,14 @@ unordered_map<int, string> get_tokens_name(){
     tokens_name[T_NUM_INT] = "num_int";
     tokens_name[T_NUM_REAL] = "num_real";
 
-    tokens_name[T_APAR] = "s_abre_parenteses";
-    tokens_name[T_FPAR] = "s_fecha_parenteses";
+    tokens_name[T_ABRE_PAR] = "s_abre_parenteses";
+    tokens_name[T_FECHA_PAR] = "s_fecha_parenteses";
     tokens_name[T_PT] = "s_ponto";
     tokens_name[T_VIR] = "s_virgula";
     tokens_name[T_DOIS_PTS] = "s_dois_pontos";
     tokens_name[T_PT_VIR] = "s_ponto_virgula";
 
-    tokens_name[T_ATR] = "s_atribuicao";
+    tokens_name[T_ATRIB] = "s_atribuicao";
 
     tokens_name[T_IGUAL] = "s_igual";
     tokens_name[T_DIF] = "s_diferente";
