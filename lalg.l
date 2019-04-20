@@ -3,13 +3,14 @@
     #include <iostream>
     #include <unordered_map>
     #include "tokens.h"
-
     using namespace std;
 
     struct Pair{
         string text;
         int token;
     };
+
+    extern "C" int yylex();
 
     static unordered_map<int, string> tokens_name = get_tokens_name();
     static unordered_map<string, int> keywords = get_keywords();    
