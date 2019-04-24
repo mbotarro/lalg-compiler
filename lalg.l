@@ -55,13 +55,14 @@ digito [0-9]
 -?{digito}+                         { return T_NUM_INT; }
 -?{digito}+"."{digito}+             { return T_NUM_REAL; }
 
- /* erros - TODO: CRIAR ERROS ESPECÍFICOS E RETORNAR ELES
- (T_ERRO_ID, T_ERRO_NUM_REAL, T_ERRO_DESCONHECIDO...) */
-"-"?{digito}+"."{letra}+{digito}*   { return T_ERRO; }
-.                                   { return T_ERRO; }
+{letra}{17,}                                            { return T_ERRO_TAM_MAX; }
+[^a-zA-Z0-9 "{""("\n]+{letra}+                          { return T_ERRO_ID_MAL_FORM; }
+"-"?{digito}+([a-zA-Z_]+{digito}*)+                     { return T_ERRO_NUM_INT_MAL_FORM; }
+"-"?{digito}+"."({letra}+{digito}*|{digito}*{letra}+)+  { return T_ERRO_NUM_REAL_MAL_FORM; }
+"{".*[^"}"]\n                                           { return T_ERRO_COMENT_MAL_FORM; }
+.                                                       { return T_ERRO_SIM_N_REC; }
 
 <<EOF>> { return T_EOF; }
-
 %%
 
 Pair next_token(){

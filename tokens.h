@@ -58,7 +58,12 @@ enum Tokens{
     T_ELSE,
 
     // Errors
-    T_ERRO,
+    T_ERRO_TAM_MAX,
+    T_ERRO_ID_MAL_FORM,
+    T_ERRO_NUM_INT_MAL_FORM,
+    T_ERRO_NUM_REAL_MAL_FORM,
+    T_ERRO_COMENT_MAL_FORM,
+    T_ERRO_SIM_N_REC,
 };
 
 /* 

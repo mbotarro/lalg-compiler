@@ -46,7 +46,12 @@ unordered_map<int, string> get_tokens_name(){
     tokens_name[T_THEN] = "r_then";
     tokens_name[T_ELSE] = "r_else";
 
-    tokens_name[T_ERRO] = "error";  
+    tokens_name[T_ERRO_TAM_MAX] = "erro_tamanho_maximo";
+    tokens_name[T_ERRO_ID_MAL_FORM] = "erro_id_mal_formado";
+    tokens_name[T_ERRO_NUM_INT_MAL_FORM] = "erro_numero_inteiro_mal_formado";
+    tokens_name[T_ERRO_NUM_REAL_MAL_FORM] = "erro_numero_real_mal_formado";
+    tokens_name[T_ERRO_COMENT_MAL_FORM] = "erro_comentario_mal_formado";
+    tokens_name[T_ERRO_SIM_N_REC] = "erro_simbolo_nao_reconhecido";
 
     return tokens_name; 
 }
