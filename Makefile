@@ -4,3 +4,6 @@ build:
 
 test: build
 	@./out < testes/test1.txt
+
+run: build
+	@./out
