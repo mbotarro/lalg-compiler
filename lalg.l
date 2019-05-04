@@ -55,12 +55,14 @@ digito [0-9]
 -?{digito}+                         { return T_NUM_INT; }
 -?{digito}+"."{digito}+             { return T_NUM_REAL; }
 
-{letra}{17,}                                            { return T_ERRO_TAM_MAX; }
-[^a-zA-Z0-9 "{""("\n]+{letra}+                          { return T_ERRO_ID_MAL_FORM; }
-"-"?{digito}+([a-zA-Z_]+{digito}*)+                     { return T_ERRO_NUM_INT_MAL_FORM; }
-"-"?{digito}+"."({letra}+{digito}*|{digito}*{letra}+)+  { return T_ERRO_NUM_REAL_MAL_FORM; }
-"{".*[^"}"]\n                                           { return T_ERRO_COMENT_MAL_FORM; }
-.                                                       { return T_ERRO_SIM_N_REC; }
+{letra}{17,}                                            			{ return T_ERRO_TAM_MAX; }
+"-"?{digito}+([a-zA-Z_]+{digito}*)+                     			{ return T_ERRO_NUM_INT_MAL_FORM; }
+[^a-zA-Z0-9 "{""("\n"+""-""*""/""="">""<""."]+({letra}|{digito})+  		{ return T_ERRO_ID_MAL_FORM; }
+"-"?{digito}+({letra}|{digito})*"."({digito}*{letra}+)*			{ return T_ERRO_NUM_REAL_MAL_FORM; }
+"-"?{digito}+({letra}+{digito}*)*"."({digito}|{letra})* 			{ return T_ERRO_NUM_REAL_MAL_FORM; }
+"-"?"."{digito}+					  			{ return T_ERRO_NUM_REAL_MAL_FORM; }
+"{".*[^"}"]\n                                           			{ return T_ERRO_COMENT_MAL_FORM; }
+.                                                       			{ return T_ERRO_SIM_N_REC; }
 
 <<EOF>> { return T_EOF; }
 %%
