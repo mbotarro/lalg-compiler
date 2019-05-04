@@ -1,0 +1,15 @@
+program lalg;
+
+{um comentario mal formado
+var a: integer;
+var b, c: integer;
+begin
+@#!}$
+a := 295723.32957
+a := 2590375.;
+a := .59237523;
+a := 329a2395.32;
+a := 3205athui3297.asgh39;
+a := 3523.afuioidiego350;
+a:=b*c;
+end.

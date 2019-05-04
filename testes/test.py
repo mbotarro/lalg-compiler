@@ -28,7 +28,7 @@ for arq in os.listdir(path)[::-1]:
         print("_" * 100)
         print("\nResultado " + idxTest.split(".txt")[0], end=" ")
         if diffResult == 0:
-            print(colored('OK\n', 'green'))
+            print(colored('OK', 'green'))
         else:
             print(colored('Difere', 'red')) 
             os.system("sdiff out" + idxTest + " exp" + idxTest)
