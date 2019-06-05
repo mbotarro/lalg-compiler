@@ -1,8 +1,11 @@
+Useless nonterminals
+
+   fator
+
+
 Terminals which are not used
 
    T_EOF
-   NUM_INT
-   NUM_REAL
    ABRE_PAR
    FECHA_PAR
    VIR
@@ -34,13 +37,23 @@ Terminals which are not used
    ELSE
 
 
+Useless rules
+
+    6 fator: ID
+    7      | numero
+
+
 Grammar
 
     0 $accept: programa $end
 
     1 programa: PROGRAM ID PT_VIR corpo PT
 
-    2 corpo: T_BEGIN END
+    2 corpo: /* empty */
+    3      | T_BEGIN numero END
+
+    4 numero: NUM_INT
+    5       | NUM_REAL
 
 
 Terminals, with rules where they appear
@@ -49,8 +62,8 @@ $end (0) 0
 error (256)
 T_EOF (258)
 ID (259) 1
-NUM_INT (260)
-NUM_REAL (261)
+NUM_INT (260) 4
+NUM_REAL (261) 5
 ABRE_PAR (262)
 FECHA_PAR (263)
 PT (264) 1
@@ -74,8 +87,8 @@ VAR (281)
 REAL (282)
 INT (283)
 PROCEDURE (284)
-T_BEGIN (285) 2
-END (286) 2
+T_BEGIN (285) 3
+END (286) 3
 READ (287)
 WRITE (288)
 WHILE (289)
@@ -94,7 +107,9 @@ $accept (41)
 programa (42)
     on left: 1, on right: 0
 corpo (43)
-    on left: 2, on right: 1
+    on left: 2 3, on right: 1
+numero (44)
+    on left: 4 5, on right: 3
 
 
 state 0
@@ -140,32 +155,58 @@ state 5
 
     T_BEGIN  shift, and go to state 6
 
+    $default  reduce using rule 2 (corpo)
+
     corpo  go to state 7
 
 
 state 6
 
-    2 corpo: T_BEGIN . END
+    3 corpo: T_BEGIN . numero END
 
-    END  shift, and go to state 8
+    NUM_INT   shift, and go to state 8
+    NUM_REAL  shift, and go to state 9
+
+    numero  go to state 10
 
 
 state 7
 
     1 programa: PROGRAM ID PT_VIR corpo . PT
 
-    PT  shift, and go to state 9
+    PT  shift, and go to state 11
 
 
 state 8
 
-    2 corpo: T_BEGIN END .
+    4 numero: NUM_INT .
 
-    $default  reduce using rule 2 (corpo)
+    $default  reduce using rule 4 (numero)
 
 
 state 9
 
+    5 numero: NUM_REAL .
+
+    $default  reduce using rule 5 (numero)
+
+
+state 10
+
+    3 corpo: T_BEGIN numero . END
+
+    END  shift, and go to state 12
+
+
+state 11
+
     1 programa: PROGRAM ID PT_VIR corpo PT .
 
     $default  reduce using rule 1 (programa)
+
+
+state 12
+
+    3 corpo: T_BEGIN numero END .
+
+    $default  reduce using rule 3 (corpo)
