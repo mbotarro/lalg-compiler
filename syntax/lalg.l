@@ -75,7 +75,7 @@ digito [0-9]
 
  */
 
-<<EOF>> { return T_EOF; }
+ /* <<EOF>> { return T_EOF; } */
 %%
 
 unordered_map<string, int> get_keywords(){

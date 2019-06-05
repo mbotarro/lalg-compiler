@@ -154,7 +154,7 @@
 
     #include <iostream>
 
-    // extern int yylex();
+    extern int yylex();
     extern int yyerror(const char *str);
     
     using namespace std;
@@ -406,16 +406,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   6
+#define YYLAST   102
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  41
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  3
+#define YYNNTS  33
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  3
+#define YYNRULES  63
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  10
+#define YYNSTATES  126
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -464,20 +464,49 @@ static const yytype_uint8 yytranslate[] =
    YYRHS.  */
 static const yytype_uint8 yyprhs[] =
 {
-       0,     0,     3,     9
+       0,     0,     3,     9,    14,    18,    19,    26,    27,    34,
+      36,    38,    41,    42,    45,    46,    53,    54,    58,    63,
+      64,    67,    73,    75,    76,    81,    84,    85,    88,    89,
+      92,    93,    97,   102,   107,   114,   120,   124,   127,   131,
+     135,   137,   139,   141,   143,   145,   147,   150,   151,   153,
+     155,   156,   160,   162,   164,   168,   169,   173,   175,   177,
+     179,   181,   185,   187
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      42,     0,    -1,    24,     4,    12,    43,     9,    -1,    30,
-      31,    -1
+      42,     0,    -1,    24,     4,    12,    43,     9,    -1,    44,
+      30,    61,    31,    -1,    45,    46,    50,    -1,    -1,    25,
+       4,    14,    73,    12,    45,    -1,    -1,    26,    48,    11,
+      47,    12,    46,    -1,    27,    -1,    28,    -1,     4,    49,
+      -1,    -1,    10,    48,    -1,    -1,    29,     4,    51,    12,
+      54,    50,    -1,    -1,     7,    52,     8,    -1,    48,    11,
+      47,    53,    -1,    -1,    12,    52,    -1,    55,    30,    61,
+      31,    12,    -1,    46,    -1,    -1,    57,     7,    58,     8,
+      -1,     4,    59,    -1,    -1,    12,    58,    -1,    -1,    40,
+      62,    -1,    -1,    62,    12,    61,    -1,    32,     7,    48,
+       8,    -1,    33,     7,    48,     8,    -1,    34,     7,    63,
+       8,    35,    62,    -1,    38,    63,    39,    62,    60,    -1,
+       4,    13,    65,    -1,     4,    56,    -1,    30,    61,    31,
+      -1,    65,    64,    65,    -1,    14,    -1,    15,    -1,    16,
+      -1,    17,    -1,    18,    -1,    19,    -1,    69,    67,    -1,
+      -1,    20,    -1,    21,    -1,    -1,    68,    69,    67,    -1,
+      20,    -1,    21,    -1,    66,    72,    70,    -1,    -1,    71,
+      72,    70,    -1,    22,    -1,    23,    -1,     4,    -1,    73,
+      -1,     7,    65,     8,    -1,     5,    -1,     6,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    34,    34,    35
+       0,    34,    34,    37,    40,    43,    44,    47,    48,    51,
+      52,    55,    58,    59,    62,    63,    66,    67,    70,    73,
+      74,    77,    80,    83,    83,    87,    91,    92,    95,    96,
+      99,   100,   103,   104,   105,   106,   107,   108,   109,   112,
+     115,   116,   117,   118,   119,   120,   123,   126,   127,   128,
+     131,   132,   135,   136,   139,   142,   143,   147,   148,   151,
+     152,   153,   156,   157
 };
 #endif
 
@@ -491,7 +520,12 @@ static const char *const yytname[] =
   "IGUAL", "DIF", "MAIOR_IGUAL", "MENOR_IGUAL", "MAIOR", "MENOR", "MAIS",
   "MENOS", "MULT", "DIV", "PROGRAM", "CONST", "VAR", "REAL", "INT",
   "PROCEDURE", "T_BEGIN", "END", "READ", "WRITE", "WHILE", "DO", "FOR",
-  "TO", "IF", "THEN", "ELSE", "$accept", "programa", "corpo", 0
+  "TO", "IF", "THEN", "ELSE", "$accept", "programa", "corpo", "dc", "dc_c",
+  "dc_v", "tipo_var", "variaveis", "mais_var", "dc_p", "parametros",
+  "lista_par", "mais_par", "corpo_p", "dc_loc", "lista_arg", "@1",
+  "argumentos", "mais_ident", "pfalsa", "comandos", "cmd", "condicao",
+  "relacao", "expressao", "op_un", "outros_termos", "op_ad", "termo",
+  "mais_fatores", "op_mul", "fator", "numero", 0
 };
 #endif
 
@@ -511,13 +545,25 @@ static const yytype_uint16 yytoknum[] =
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    41,    42,    43
+       0,    41,    42,    43,    44,    45,    45,    46,    46,    47,
+      47,    48,    49,    49,    50,    50,    51,    51,    52,    53,
+      53,    54,    55,    57,    56,    58,    59,    59,    60,    60,
+      61,    61,    62,    62,    62,    62,    62,    62,    62,    63,
+      64,    64,    64,    64,    64,    64,    65,    66,    66,    66,
+      67,    67,    68,    68,    69,    70,    70,    71,    71,    72,
+      72,    72,    73,    73
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     5,     2
+       0,     2,     5,     4,     3,     0,     6,     0,     6,     1,
+       1,     2,     0,     2,     0,     6,     0,     3,     4,     0,
+       2,     5,     1,     0,     4,     2,     0,     2,     0,     2,
+       0,     3,     4,     4,     6,     5,     3,     2,     3,     3,
+       1,     1,     1,     1,     1,     1,     2,     0,     1,     1,
+       0,     3,     1,     1,     3,     0,     3,     1,     1,     1,
+       1,     3,     1,     1
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -525,27 +571,57 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     0,     1,     0,     0,     0,     3,     2
+       0,     0,     0,     0,     1,     5,     0,     0,     0,     7,
+       0,     2,    30,     0,    14,     0,    23,    30,     0,     0,
+       0,    47,     0,     0,    12,     0,     0,     4,    62,    63,
+       0,    47,    37,     0,     0,     0,     0,    47,    48,    49,
+       0,     0,     0,    50,     3,    30,     0,    11,     0,    16,
+       5,    36,     0,    38,     0,     0,     0,     0,    40,    41,
+      42,    43,    44,    45,    47,    59,    47,    55,    60,    52,
+      53,    46,    47,    31,    13,     9,    10,     0,     0,     0,
+       6,    26,     0,    32,    33,     0,    28,    39,     0,    57,
+      58,    54,     0,    50,     7,     0,     0,     7,     0,    25,
+      24,     0,     0,    35,    61,    55,    51,     8,     0,    17,
+      22,    14,     0,    27,    34,    29,    56,    19,    15,    30,
+       0,    18,     0,    20,     0,    21
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     7
+      -1,     2,     7,     8,     9,    14,    77,    95,    47,    27,
+      79,    96,   121,   111,   112,    32,    33,    82,    99,   103,
+      22,    23,    40,    64,    41,    42,    71,    72,    43,    91,
+      92,    67,    68
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -27
+#define YYPACT_NINF -80
 static const yytype_int8 yypact[] =
 {
-     -24,    -3,     2,    -9,   -27,   -26,   -25,    -4,   -27,   -27
+       3,    25,    31,    29,   -80,    18,    38,    35,    19,    21,
+      34,   -80,     0,    46,    22,    11,    39,     0,    47,    48,
+      49,    -1,    26,    41,    50,    51,    54,   -80,   -80,   -80,
+      52,    -1,   -80,    56,    28,    46,    46,    -1,   -80,   -80,
+      27,    -9,     7,     1,   -80,     0,    46,   -80,    -4,    58,
+      18,   -80,    57,   -80,    59,    60,    61,     0,   -80,   -80,
+     -80,   -80,   -80,   -80,    -1,   -80,    -1,    17,   -80,   -80,
+     -80,   -80,    -1,   -80,   -80,   -80,   -80,    62,    46,    63,
+     -80,    64,    65,   -80,   -80,    36,    30,   -80,    69,   -80,
+     -80,   -80,     7,     1,    21,    67,    71,    21,    57,   -80,
+     -80,     0,     0,   -80,   -80,    17,   -80,   -80,    -4,   -80,
+     -80,    22,    42,   -80,   -80,   -80,   -80,    68,   -80,     0,
+      46,   -80,    53,   -80,    70,   -80
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -27,   -27,   -27
+     -80,   -80,   -80,   -80,    33,   -79,   -27,   -10,   -80,   -26,
+     -80,   -34,   -80,   -80,   -80,   -80,   -80,   -11,   -80,   -80,
+     -17,   -56,    55,   -80,   -29,   -80,    -5,   -80,    23,   -16,
+     -80,    -2,    76
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -555,19 +631,51 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-       1,     3,     4,     5,     6,     9,     8
+      34,    86,    51,    25,    16,    58,    59,    60,    61,    62,
+      63,    65,    28,    29,    66,   107,    28,    29,   110,    38,
+      39,    69,    70,    75,    76,    54,    55,     1,    73,     3,
+      17,     4,    18,    19,    20,    87,    74,    88,    21,    89,
+      90,     5,    10,     6,    11,   114,   115,    13,    15,    12,
+      24,    26,    31,    45,    35,    36,    37,    44,    49,    53,
+      46,    81,    48,    52,    50,    78,    57,    83,    84,    85,
+     102,   101,   119,   100,    94,    97,    98,   104,   108,   109,
+     120,   117,   125,    80,   124,   118,   123,   113,   106,   116,
+     105,    30,    56,     0,     0,    93,     0,     0,     0,     0,
+       0,     0,   122
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-      24,     4,     0,    12,    30,     9,    31
+      17,    57,    31,    13,     4,    14,    15,    16,    17,    18,
+      19,     4,     5,     6,     7,    94,     5,     6,    97,    20,
+      21,    20,    21,    27,    28,    35,    36,    24,    45,     4,
+      30,     0,    32,    33,    34,    64,    46,    66,    38,    22,
+      23,    12,     4,    25,     9,   101,   102,    26,    14,    30,
+       4,    29,    13,    12,     7,     7,     7,    31,     4,    31,
+      10,     4,    11,     7,    12,     7,    39,     8,     8,     8,
+      40,    35,    30,     8,    12,    12,    12,     8,    11,     8,
+      12,   108,    12,    50,    31,   111,   120,    98,    93,   105,
+      92,    15,    37,    -1,    -1,    72,    -1,    -1,    -1,    -1,
+      -1,    -1,   119
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    24,    42,     4,     0,    12,    30,    43,    31,     9
+       0,    24,    42,     4,     0,    12,    25,    43,    44,    45,
+       4,     9,    30,    26,    46,    14,     4,    30,    32,    33,
+      34,    38,    61,    62,     4,    48,    29,    50,     5,     6,
+      73,    13,    56,    57,    61,     7,     7,     7,    20,    21,
+      63,    65,    66,    69,    31,    12,    10,    49,    11,     4,
+      12,    65,     7,    31,    48,    48,    63,    39,    14,    15,
+      16,    17,    18,    19,    64,     4,     7,    72,    73,    20,
+      21,    67,    68,    61,    48,    27,    28,    47,     7,    51,
+      45,     4,    58,     8,     8,     8,    62,    65,    65,    22,
+      23,    70,    71,    69,    12,    48,    52,    12,    12,    59,
+       8,    35,    40,    60,     8,    72,    67,    46,    11,     8,
+      46,    54,    55,    58,    62,    62,    70,    47,    50,    30,
+      12,    53,    61,    52,    31,    12
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1383,17 +1491,317 @@ yyreduce:
     {
         case 2:
 #line 34 "lalg.y"
-    { cout << "SINTAX PROGRAM\n"; }
+    { cout << "SINTAX programa\n"; }
     break;
 
   case 3:
-#line 35 "lalg.y"
-    { cout << "SINTAX CORPO\n"; }
+#line 37 "lalg.y"
+    { cout << "SINTAX corpo\n"; }
+    break;
+
+  case 4:
+#line 40 "lalg.y"
+    { cout << "SINTAX dc\n"; }
+    break;
+
+  case 5:
+#line 43 "lalg.y"
+    { cout << "SINTAX DC_C\n"; }
+    break;
+
+  case 6:
+#line 44 "lalg.y"
+    { cout << "SINTAX DC_C\n"; }
+    break;
+
+  case 7:
+#line 47 "lalg.y"
+    {cout << "SINTAX dc_v\n"; }
+    break;
+
+  case 8:
+#line 48 "lalg.y"
+    {cout << "SINTAX dc_v\n"; }
+    break;
+
+  case 9:
+#line 51 "lalg.y"
+    { cout << "SINTAX tipo_var\n"; }
+    break;
+
+  case 10:
+#line 52 "lalg.y"
+    { cout << "SINTAX tipo_var\n"; }
+    break;
+
+  case 11:
+#line 55 "lalg.y"
+    { cout << "SINTAX variaveis\n"; }
+    break;
+
+  case 12:
+#line 58 "lalg.y"
+    { cout << "SINTAX mais_var\n"; }
+    break;
+
+  case 13:
+#line 59 "lalg.y"
+    { cout << "SINTAX mais_var\n"; }
+    break;
+
+  case 14:
+#line 62 "lalg.y"
+    { cout << "SINTAX dc_p\n"; }
+    break;
+
+  case 15:
+#line 63 "lalg.y"
+    { cout << "SINTAX dc_p\n"; }
+    break;
+
+  case 16:
+#line 66 "lalg.y"
+    { cout << "SINTAX parametros\n"; }
+    break;
+
+  case 17:
+#line 67 "lalg.y"
+    { cout << "SINTAX parametros\n"; }
+    break;
+
+  case 18:
+#line 70 "lalg.y"
+    { cout << "SINTAX lista_par\n"; }
+    break;
+
+  case 19:
+#line 73 "lalg.y"
+    { cout << "SINTAX mais_par\n"; }
+    break;
+
+  case 20:
+#line 74 "lalg.y"
+    { cout << "SINTAX mais_par\n"; }
+    break;
+
+  case 21:
+#line 77 "lalg.y"
+    { cout << "SINTAX corpo_p\n"; }
+    break;
+
+  case 22:
+#line 80 "lalg.y"
+    { cout << "SINTAX dc_loc\n"; }
+    break;
+
+  case 23:
+#line 83 "lalg.y"
+    { cout << "SINTAX lista_arg\n"; }
+    break;
+
+  case 24:
+#line 84 "lalg.y"
+    { cout << "SINTAX lista_arg\n"; }
+    break;
+
+  case 25:
+#line 87 "lalg.y"
+    { cout << "SINTAX argumentos\n"; }
+    break;
+
+  case 26:
+#line 91 "lalg.y"
+    { cout << "SINTAX mais_ident\n"; }
+    break;
+
+  case 27:
+#line 92 "lalg.y"
+    { cout << "SINTAX mais_ident\n"; }
+    break;
+
+  case 28:
+#line 95 "lalg.y"
+    { cout << "SINTAX pfalsa\n"; }
+    break;
+
+  case 29:
+#line 96 "lalg.y"
+    { cout << "SINTAX pfalsa\n"; }
+    break;
+
+  case 30:
+#line 99 "lalg.y"
+    { cout << "SINTAX comandos\n"; }
+    break;
+
+  case 31:
+#line 100 "lalg.y"
+    { cout << "SINTAX comandos\n"; }
+    break;
+
+  case 32:
+#line 103 "lalg.y"
+    { cout << "SINTAX cmd\n"; }
+    break;
+
+  case 33:
+#line 104 "lalg.y"
+    { cout << "SINTAX cmd\n"; }
+    break;
+
+  case 34:
+#line 105 "lalg.y"
+    { cout << "SINTAX cmd\n"; }
+    break;
+
+  case 35:
+#line 106 "lalg.y"
+    { cout << "SINTAX cmd\n"; }
+    break;
+
+  case 36:
+#line 107 "lalg.y"
+    { cout << "SINTAX cmd\n"; }
+    break;
+
+  case 37:
+#line 108 "lalg.y"
+    { cout << "SINTAX cmd\n"; }
+    break;
+
+  case 38:
+#line 109 "lalg.y"
+    { cout << "SINTAX cmd\n"; }
+    break;
+
+  case 39:
+#line 112 "lalg.y"
+    { cout << "SINTAX condicao\n"; }
+    break;
+
+  case 40:
+#line 115 "lalg.y"
+    { cout << "SINTAX relacao\n"; }
+    break;
+
+  case 41:
+#line 116 "lalg.y"
+    { cout << "SINTAX relacao\n"; }
+    break;
+
+  case 42:
+#line 117 "lalg.y"
+    { cout << "SINTAX relacao\n"; }
+    break;
+
+  case 43:
+#line 118 "lalg.y"
+    { cout << "SINTAX relacao\n"; }
+    break;
+
+  case 44:
+#line 119 "lalg.y"
+    { cout << "SINTAX relacao\n"; }
+    break;
+
+  case 45:
+#line 120 "lalg.y"
+    { cout << "SINTAX relacao\n"; }
+    break;
+
+  case 46:
+#line 123 "lalg.y"
+    { cout << "SINTAX expressao\n"; }
+    break;
+
+  case 47:
+#line 126 "lalg.y"
+    { cout << "SINTAX op_un\n"; }
+    break;
+
+  case 48:
+#line 127 "lalg.y"
+    { cout << "SINTAX op_un\n"; }
+    break;
+
+  case 49:
+#line 128 "lalg.y"
+    { cout << "SINTAX op_un\n"; }
+    break;
+
+  case 50:
+#line 131 "lalg.y"
+    { cout << "SINTAX outros_termos\n"; }
+    break;
+
+  case 51:
+#line 132 "lalg.y"
+    { cout << "SINTAX outros_termos\n"; }
+    break;
+
+  case 52:
+#line 135 "lalg.y"
+    { cout << "SINTAX op_ad\n"; }
+    break;
+
+  case 53:
+#line 136 "lalg.y"
+    { cout << "SINTAX op_ad\n"; }
+    break;
+
+  case 54:
+#line 139 "lalg.y"
+    { cout << "SINTAX termo\n"; }
+    break;
+
+  case 55:
+#line 142 "lalg.y"
+    { cout << "SINTAX mais_fatores\n"; }
+    break;
+
+  case 56:
+#line 143 "lalg.y"
+    { cout << "SINTAX mais_fatores\n"; }
+    break;
+
+  case 57:
+#line 147 "lalg.y"
+    { cout << "SINTAX op_mul\n"; }
+    break;
+
+  case 58:
+#line 148 "lalg.y"
+    { cout << "SINTAX op_mul\n"; }
+    break;
+
+  case 59:
+#line 151 "lalg.y"
+    { cout << "SINTAX fator\n"; }
+    break;
+
+  case 60:
+#line 152 "lalg.y"
+    { cout << "SINTAX fator\n"; }
+    break;
+
+  case 61:
+#line 153 "lalg.y"
+    { cout << "SINTAX fator\n"; }
+    break;
+
+  case 62:
+#line 156 "lalg.y"
+    { cout << "SINTAX numero\n"; }
+    break;
+
+  case 63:
+#line 157 "lalg.y"
+    { cout << "SINTAX numero\n"; }
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1397 "y.tab.c"
+#line 1805 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1607,15 +2015,18 @@ yyreturn:
 }
 
 
-#line 38 "lalg.y"
-
+#line 159 "lalg.y"
 
 
 extern int yyparse();
 
+bool error = false;
+
 int main()
 {    
     yyparse();
+    if (!error)
+        printf("SUCCESS :D\n");
 }
 
 int yywrap(){
@@ -1624,6 +2035,7 @@ int yywrap(){
 
 int yyerror(const char *str){
     printf("ERROR searching for %d : %d", yychar, yylval);
+    error = true;
     return 1;
 }
 
