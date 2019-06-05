@@ -31,8 +31,56 @@
 
 %%
 
-programa: PROGRAM ID PT_VIR corpo PT { cout << "SINTAX PROGRAM\n"; } 
-corpo: T_BEGIN END { cout << "SINTAX CORPO\n"; }
+programa:   PROGRAM ID PT_VIR corpo PT                    { cout << "SINTAX PROGRAM\n"; } 
+            ;
+
+corpo:      dc T_BEGIN comandos END                       { cout << "SINTAX CORPO\n"; }
+            ;
+
+dc:         dc_c dc_v dc_p                                { cout << "SINTAX DC\n"; }
+            ;
+
+dc_c:                                                     { cout << "SINTAX DC_C\n"; }
+            | CONST ID IGUAL numero PT_VIR dc_c           { cout << "SINTAX DC_C\n"; }
+            ;
+
+dc_v:                                                     {cout << "SINTAX DC_V\n"; } 
+            | VAR variaveis DOIS_PTS tipo_var PT_VIR dc_v {cout << "SINTAX DC_V\n"; }
+            ;
+
+tipo_var:   REAL                                          { cout << "SINTAX TIPO_VAR\n"; }
+            | INT                                         { cout << "SINTAX TIPO_VAR\n"; }
+            ;
+
+variaveis:  ID mais_var                                   { cout << "SINTAX VARIAVEIS\n"; }
+            ;
+
+mais_var:                                                 { cout << "SINTAX MAIS_VAR\n"; }
+            | VIR variaveis                               { cout << "SINTAX MAIS_VAR\n"; }
+            ;
+
+dc_p:                                                     { cout << "SINTAX DC_P\n"; }
+            | PROCEDURE ID parametros PT_VIR corpo_p dc_p { cout << "SINTAX DC_P\n"; }
+            ;
+
+parametros:                                               { cout << "SINTAX PARAMETROS\n"; }
+            | ABRE_PAR lista_par FECHA_PAR                { cout << "SINTAX PARAMETROS\n"; }
+            ;
+
+lista_par:  variaveis DOIS_PTS tipo_var mais_par          { cout << "SINTAX LISTA_PAR\n"; }
+            ;
+
+mais_par:                                                 { cout << "SINTAX MAIS_PAR\n"; }
+            | PT_VIR lista_par                            { cout << "SINTAX MAIS_PAR\n"; }
+            ;
+
+corpo_p:    dc_loc T_BEGIN comandos END PT_VIR            { cout << "SINTAX CORPO_P\n"; }
+            ;
+
+dc_loc:     dc_v                                          { cout << "SINTAX DC_LOC\n"; }
+            ;
+
+
 
 
 %%
