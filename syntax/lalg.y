@@ -160,9 +160,13 @@ numero:         NUM_INT                                       { cout << "SINTAX 
 
 extern int yyparse();
 
+bool error = false;
+
 int main()
 {    
     yyparse();
+    if (!error)
+        printf("SUCCESS :D\n");
 }
 
 int yywrap(){
@@ -171,5 +175,6 @@ int yywrap(){
 
 int yyerror(const char *str){
     printf("ERROR searching for %d : %d", yychar, yylval);
+    error = true;
     return 1;
 }
