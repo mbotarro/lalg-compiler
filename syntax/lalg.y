@@ -100,7 +100,10 @@ comandos:                                                     { cout << "SINTAX 
                 | cmd PT_VIR comandos                         { cout << "SINTAX comandos\n"; }
                 ;             
         
-cmd:            IF condicao THEN cmd pfalsa                   { cout << "SINTAX cmd\n"; }
+cmd:            READ ABRE_PAR variaveis FECHA_PAR             { cout << "SINTAX cmd\n"; }
+                | WRITE ABRE_PAR variaveis FECHA_PAR          { cout << "SINTAX cmd\n"; }
+                | WHILE ABRE_PAR condicao FECHA_PAR DO cmd    { cout << "SINTAX cmd\n"; }
+                | IF condicao THEN cmd pfalsa                 { cout << "SINTAX cmd\n"; }
                 | ID ATRIB expressao                          { cout << "SINTAX cmd\n"; }
                 | ID lista_arg                                { cout << "SINTAX cmd\n"; }
                 | T_BEGIN comandos END                        { cout << "SINTAX cmd\n"; }
