@@ -31,86 +31,129 @@
 
 %%
 
-programa:       PROGRAM ID PT_VIR corpo PT { cout << "SINTAX PROGRAM\n"; } 
+programa:       PROGRAM ID PT_VIR corpo PT                    { cout << "SINTAX programa\n"; } 
                 ;
 
-
-
-lista_arg:                                      { cout << "SINTAX lista_arg\n"; }
-                ABRE_PAR argumentos FECHA_PAR   { cout << "SINTAX lista_arg\n"; }
+corpo:          dc T_BEGIN comandos END                       { cout << "SINTAX corpo\n"; }
                 ;
 
-argumentos:     ID mais_ident                   { cout << "SINTAX argumentos\n"; }
+dc:             dc_c dc_v dc_p                                { cout << "SINTAX dc\n"; }
                 ;
 
-
-mais_ident:                                     { cout << "SINTAX mais_ident\n"; }
-                | PT_VIR argumentos             { cout << "SINTAX mais_ident\n"; }
+dc_c:                                                         { cout << "SINTAX DC_C\n"; }
+                | CONST ID IGUAL numero PT_VIR dc_c           { cout << "SINTAX DC_C\n"; }
                 ;
 
-pfalsa:                                         { cout << "SINTAX pfalsa\n"; }
-                | ELSE cmd                      { cout << "SINTAX pfalsa\n"; }
+dc_v:                                                         {cout << "SINTAX dc_v\n"; } 
+                | VAR variaveis DOIS_PTS tipo_var PT_VIR dc_v {cout << "SINTAX dc_v\n"; }
                 ;
 
-comandos:                                       { cout << "SINTAX comandos\n"; }
-                | cmd PT_VIR comandos           { cout << "SINTAX comandos\n"; }
+tipo_var:       REAL                                          { cout << "SINTAX tipo_var\n"; }
+                | INT                                         { cout << "SINTAX tipo_var\n"; }
                 ;
 
-cmd:            IF condicao THEN cmd pfalsa     { cout << "SINTAX cmd\n"; }
-                | ID ATRIB expressao            { cout << "SINTAX cmd\n"; }
-                | ID lista_arg                  { cout << "SINTAX cmd\n"; }
+variaveis:      ID mais_var                                   { cout << "SINTAX variaveis\n"; }
                 ;
 
-condicao:       expressao relacao expressao     { cout << "SINTAX condicao\n"; }
+mais_var:                                                     { cout << "SINTAX mais_var\n"; }
+                | VIR variaveis                               { cout << "SINTAX mais_var\n"; }
                 ;
 
-relacao:        IGUAL                           { cout << "SINTAX relacao\n"; }
-                | DIF                           { cout << "SINTAX relacao\n"; }
-                | MAIOR_IGUAL                   { cout << "SINTAX relacao\n"; }
-                | MENOR_IGUAL                   { cout << "SINTAX relacao\n"; }
-                | MAIOR                         { cout << "SINTAX relacao\n"; }
-                | MENOR                         { cout << "SINTAX relacao\n"; }
+dc_p:                                                         { cout << "SINTAX dc_p\n"; }
+                | PROCEDURE ID parametros PT_VIR corpo_p dc_p { cout << "SINTAX dc_p\n"; }
                 ;
 
-expressao:      termo outros_termos             { cout << "SINTAX expressao\n"; }
+parametros:                                                   { cout << "SINTAX parametros\n"; }
+                | ABRE_PAR lista_par FECHA_PAR                { cout << "SINTAX parametros\n"; }
                 ;
 
-op_un:                                          { cout << "SINTAX op_un\n"; }        
-                | MAIS                          { cout << "SINTAX op_un\n"; }
-                | MENOS                         { cout << "SINTAX op_un\n"; }
+lista_par:      variaveis DOIS_PTS tipo_var mais_par          { cout << "SINTAX lista_par\n"; }
                 ;
 
-outros_termos:                                  { cout << "SINTAX outros_termos\n"; }
-                | op_ad termo outros_termos     { cout << "SINTAX outros_termos\n"; }
+mais_par:                                                     { cout << "SINTAX mais_par\n"; }
+                | PT_VIR lista_par                            { cout << "SINTAX mais_par\n"; }
                 ;
 
-
-op_ad:          MAIS                            { cout << "SINTAX op_ad\n"; }
-                | MENOS                         { cout << "SINTAX op_ad\n"; }
+corpo_p:        dc_loc T_BEGIN comandos END PT_VIR            { cout << "SINTAX corpo_p\n"; }
                 ;
 
-termo:          op_un fator mais_fatores        { cout << "SINTAX termo\n"; }
+dc_loc:         dc_v                                          { cout << "SINTAX dc_loc\n"; }
                 ;
 
-mais_fatores:                                   { cout << "SINTAX mais_fatores\n"; }
-                | op_mul fator mais_fatores     { cout << "SINTAX mais_fatores\n"; }
-                ;
-
-
-op_mul:         MULT                            { cout << "SINTAX op_mul\n"; }
-                | DIV                           { cout << "SINTAX op_mul\n"; }
+lista_arg:                                                    { cout << "SINTAX lista_arg\n"; }
+                ABRE_PAR argumentos FECHA_PAR                 { cout << "SINTAX lista_arg\n"; }
+                ;             
+        
+argumentos:     ID mais_ident                                 { cout << "SINTAX argumentos\n"; }
+                ;             
+        
+        
+mais_ident:                                                   { cout << "SINTAX mais_ident\n"; }
+                | PT_VIR argumentos                           { cout << "SINTAX mais_ident\n"; }
+                ;             
+        
+pfalsa:                                                       { cout << "SINTAX pfalsa\n"; }
+                | ELSE cmd                                    { cout << "SINTAX pfalsa\n"; }
+                ;             
+        
+comandos:                                                     { cout << "SINTAX comandos\n"; }
+                | cmd PT_VIR comandos                         { cout << "SINTAX comandos\n"; }
+                ;             
+        
+cmd:            IF condicao THEN cmd pfalsa                   { cout << "SINTAX cmd\n"; }
+                | ID ATRIB expressao                          { cout << "SINTAX cmd\n"; }
+                | ID lista_arg                                { cout << "SINTAX cmd\n"; }
+                | T_BEGIN comandos END                        { cout << "SINTAX cmd\n"; }
+                ;             
+        
+condicao:       expressao relacao expressao                   { cout << "SINTAX condicao\n"; }
+                ;             
+        
+relacao:        IGUAL                                         { cout << "SINTAX relacao\n"; }
+                | DIF                                         { cout << "SINTAX relacao\n"; }
+                | MAIOR_IGUAL                                 { cout << "SINTAX relacao\n"; }
+                | MENOR_IGUAL                                 { cout << "SINTAX relacao\n"; }
+                | MAIOR                                       { cout << "SINTAX relacao\n"; }
+                | MENOR                                       { cout << "SINTAX relacao\n"; }
+                ;             
+        
+expressao:      termo outros_termos                           { cout << "SINTAX expressao\n"; }
+                ;             
+        
+op_un:                                                        { cout << "SINTAX op_un\n"; }        
+                | MAIS                                        { cout << "SINTAX op_un\n"; }
+                | MENOS                                       { cout << "SINTAX op_un\n"; }
+                ;             
+        
+outros_termos:                                                { cout << "SINTAX outros_termos\n"; }
+                | op_ad termo outros_termos                   { cout << "SINTAX outros_termos\n"; }
+                ;                   
+        
+op_ad:          MAIS                                          { cout << "SINTAX op_ad\n"; }
+                | MENOS                                       { cout << "SINTAX op_ad\n"; }
+                ;             
+        
+termo:          op_un fator mais_fatores                      { cout << "SINTAX termo\n"; }
+                ;             
+        
+mais_fatores:                                                 { cout << "SINTAX mais_fatores\n"; }
+                | op_mul fator mais_fatores                   { cout << "SINTAX mais_fatores\n"; }
+                ;             
+        
+        
+op_mul:         MULT                                          { cout << "SINTAX op_mul\n"; }
+                | DIV                                         { cout << "SINTAX op_mul\n"; }
                 ;       
 
-fator:          ID                              { cout << "SINTAX fator\n"; }
-                | numero                        { cout << "SINTAX fator\n"; }
-                | ABRE_PAR expressao FECHA_PAR  { cout << "SINTAX fator\n"; }
-                ;       
-
-numero:         NUM_INT                         { cout << "SINTAX numero\n"; }
-                | NUM_REAL                      { cout << "SINTAX numero\n"; }
+fator:          ID                                            { cout << "SINTAX fator\n"; }
+                | numero                                      { cout << "SINTAX fator\n"; }
+                | ABRE_PAR expressao FECHA_PAR                { cout << "SINTAX fator\n"; }
+                ;                     
+        
+numero:         NUM_INT                                       { cout << "SINTAX numero\n"; }
+                | NUM_REAL                                    { cout << "SINTAX numero\n"; }
                 ; 
 %%
-
 
 extern int yyparse();
 
