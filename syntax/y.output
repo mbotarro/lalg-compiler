@@ -1,0 +1,171 @@
+Terminals which are not used
+
+   T_EOF
+   NUM_INT
+   NUM_REAL
+   ABRE_PAR
+   FECHA_PAR
+   VIR
+   DOIS_PTS
+   ATRIB
+   IGUAL
+   DIF
+   MAIOR_IGUAL
+   MENOR_IGUAL
+   MAIOR
+   MENOR
+   MAIS
+   MENOS
+   MULT
+   DIV
+   CONST
+   VAR
+   REAL
+   INT
+   PROCEDURE
+   READ
+   WRITE
+   WHILE
+   DO
+   FOR
+   TO
+   IF
+   THEN
+   ELSE
+
+
+Grammar
+
+    0 $accept: programa $end
+
+    1 programa: PROGRAM ID PT_VIR corpo PT
+
+    2 corpo: T_BEGIN END
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+T_EOF (258)
+ID (259) 1
+NUM_INT (260)
+NUM_REAL (261)
+ABRE_PAR (262)
+FECHA_PAR (263)
+PT (264) 1
+VIR (265)
+DOIS_PTS (266)
+PT_VIR (267) 1
+ATRIB (268)
+IGUAL (269)
+DIF (270)
+MAIOR_IGUAL (271)
+MENOR_IGUAL (272)
+MAIOR (273)
+MENOR (274)
+MAIS (275)
+MENOS (276)
+MULT (277)
+DIV (278)
+PROGRAM (279) 1
+CONST (280)
+VAR (281)
+REAL (282)
+INT (283)
+PROCEDURE (284)
+T_BEGIN (285) 2
+END (286) 2
+READ (287)
+WRITE (288)
+WHILE (289)
+DO (290)
+FOR (291)
+TO (292)
+IF (293)
+THEN (294)
+ELSE (295)
+
+
+Nonterminals, with rules where they appear
+
+$accept (41)
+    on left: 0
+programa (42)
+    on left: 1, on right: 0
+corpo (43)
+    on left: 2, on right: 1
+
+
+state 0
+
+    0 $accept: . programa $end
+
+    PROGRAM  shift, and go to state 1
+
+    programa  go to state 2
+
+
+state 1
+
+    1 programa: PROGRAM . ID PT_VIR corpo PT
+
+    ID  shift, and go to state 3
+
+
+state 2
+
+    0 $accept: programa . $end
+
+    $end  shift, and go to state 4
+
+
+state 3
+
+    1 programa: PROGRAM ID . PT_VIR corpo PT
+
+    PT_VIR  shift, and go to state 5
+
+
+state 4
+
+    0 $accept: programa $end .
+
+    $default  accept
+
+
+state 5
+
+    1 programa: PROGRAM ID PT_VIR . corpo PT
+
+    T_BEGIN  shift, and go to state 6
+
+    corpo  go to state 7
+
+
+state 6
+
+    2 corpo: T_BEGIN . END
+
+    END  shift, and go to state 8
+
+
+state 7
+
+    1 programa: PROGRAM ID PT_VIR corpo . PT
+
+    PT  shift, and go to state 9
+
+
+state 8
+
+    2 corpo: T_BEGIN END .
+
+    $default  reduce using rule 2 (corpo)
+
+
+state 9
+
+    1 programa: PROGRAM ID PT_VIR corpo PT .
+
+    $default  reduce using rule 1 (programa)
