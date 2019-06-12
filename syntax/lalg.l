@@ -8,7 +8,7 @@
 
     unordered_map<string, int> get_keywords();
 
-    static unordered_map<string, int> keywords = get_keywords();    
+    static unordered_map<string, int> keywords = get_keywords();
 %}
 
 letra [a-zA-Z]
@@ -21,29 +21,29 @@ digito [0-9]
 "{".*"}"        ;
 
  /* pontuacao */
-"."             { cout << "PT\n"; return PT; }
-","             { cout << "VIR\n"; return VIR; }
-":"             { cout << "DOIS_PTS\n"; return DOIS_PTS; }
-";"             { cout << "PT_VIR\n"; return PT_VIR; }
-"("             { cout << "ABRE_PAR\n"; return ABRE_PAR; }
-")"             { cout << "FECHA_PAR\n"; return FECHA_PAR; }
+"."             { cout << yytext << " - " << "PT\n"; return PT; }
+","             { cout << yytext << " - " << "VIR\n"; return VIR; }
+":"             { cout << yytext << " - " << "DOIS_PTS\n"; return DOIS_PTS; }
+";"             { cout << yytext << " - " << "PT_VIR\n"; return PT_VIR; }
+"("             { cout << yytext << " - " << "ABRE_PAR\n"; return ABRE_PAR; }
+")"             { cout << yytext << " - " << "FECHA_PAR\n"; return FECHA_PAR; }
 
  /* atribuicao */
-":="            { cout << "ATRIB\n"; return ATRIB;}
+":="            { cout << yytext << " - " << "ATRIB\n"; return ATRIB;}
 
  /* operadores relacionais */
-"="             { cout << "IGUAL\n"; return IGUAL; }
-"<>"            { cout << "DIF\n"; return DIF; }
-">="            { cout << "MAIOR_IGUAL\n"; return MAIOR_IGUAL; }
-"<="            { cout << "MENOR_IGUAL\n"; return MENOR_IGUAL; }
-">"             { cout << "MAIOR\n"; return MAIOR; }
-"<"             { cout << "MENOR\n"; return MENOR; }
+"="             { cout << yytext << " - " << "IGUAL\n"; return IGUAL; }
+"<>"            { cout << yytext << " - " << "DIF\n"; return DIF; }
+">="            { cout << yytext << " - " << "MAIOR_IGUAL\n"; return MAIOR_IGUAL; }
+"<="            { cout << yytext << " - " << "MENOR_IGUAL\n"; return MENOR_IGUAL; }
+">"             { cout << yytext << " - " << "MAIOR\n"; return MAIOR; }
+"<"             { cout << yytext << " - " << "MENOR\n"; return MENOR; }
 
  /* operadores aritimeticos */
-"+"             { cout << "MAIS\n"; return MAIS; }
-"-"             { cout << "MENOS\n"; return MENOS; }
-"*"             { cout << "MULT\n"; return MULT; }
-"/"             { cout << "DIV\n"; return DIV; }
+"+"             { cout << yytext << " - " << "MAIS\n"; return MAIS; }
+"-"             { cout << yytext << " - " << "MENOS\n"; return MENOS; }
+"*"             { cout << yytext << " - " << "MULT\n"; return MULT; }
+"/"             { cout << yytext << " - " << "DIV\n"; return DIV; }
 
  /* variaveis de usuario */
 {letra}{1,16}                       {
@@ -51,17 +51,17 @@ digito [0-9]
                                             string s = yytext;
                                             for (int i = 0; i < s.length(); i++)
                                                 s[i] = toupper(s[i]);
-                                            cout << s << endl;
+                                            cout << yytext << " - " << s << endl;
                                             return keywords[yytext];
                                         }
                                         else{
-                                            cout << "ID\n";
+                                            cout << yytext << " - " << "ID\n";
                                             return ID;
                                         }
                                     } 
-{letra}({letra}|{digito}|_){0,15}   { cout << "ID\n"; return ID; }
--?{digito}+                         { cout << "NUM_INT\n"; return NUM_INT; }
--?{digito}+"."{digito}+             { cout << "NUM_REAL\n"; return NUM_REAL; }
+{letra}({letra}|{digito}|_){0,15}   { cout << yytext << " - " << "ID\n"; return ID; }
+{digito}+                         { cout << yytext << " - " << "NUM_INT\n"; return NUM_INT; }
+{digito}+"."{digito}+             { cout << yytext << " - " << "NUM_REAL\n"; return NUM_REAL; }
 
  /*
 {letra}{17,}                                            			{ return T_ERRO_TAM_MAX; }

@@ -5,6 +5,8 @@
     extern int yyerror(const char *str);
     
     using namespace std;
+    
+    extern char *yytext;
 %}
 
 // Auxiliary tokens
@@ -30,11 +32,18 @@
 %token DO FOR TO IF THEN ELSE
 
 %%
-
 programa:       PROGRAM ID PT_VIR corpo PT                    { cout << "SINTAX programa\n"; } 
+
+                | error { yyerror("program"); } ID PT_VIR corpo PT                       
+                | PROGRAM error { yyerror("id"); } PT_VIR corpo PT
+                | PROGRAM ID error { yyerror(";"); } corpo PT
+                | PROGRAM ID PT_VIR corpo error { yyerror("."); }
                 ;
 
-corpo:          dc T_BEGIN comandos END                       { cout << "SINTAX corpo\n"; }
+
+corpo:          dc T_BEGIN comandos END { cout << "SINTAX corpo\n"; }
+                | dc error { yyerror("begin"); } comandos END
+                | dc T_BEGIN comandos error { yyerror("end"); }
                 ;
 
 dc:             dc_c dc_v dc_p                                { cout << "SINTAX dc\n"; }
@@ -174,7 +183,8 @@ int yywrap(){
 }
 
 int yyerror(const char *str){
-    printf("ERROR searching for %d : %d", yychar, yylval);
+    //printf("ERROR searching for %d : %d", yychar, yylval);
+    cout << "Era esperado " << str << ", encontrado: " << yytext << endl; 
     error = true;
     return 1;
 }
