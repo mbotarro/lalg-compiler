@@ -47,7 +47,6 @@ corpo:          dc T_BEGIN comandos END { cout << "SINTAX corpo\n"; }
                 ;
 
 dc:             dc_c dc_v dc_p                                { cout << "SINTAX dc\n"; }
-                | error {yyerror("const ou var");} dc_p
                 ;
 
 dc_c:                                                         { cout << "SINTAX DC_C\n"; }
@@ -61,6 +60,7 @@ dc_v:                                                         {cout << "SINTAX d
                 | VAR variaveis DOIS_PTS tipo_var PT_VIR dc_v {cout << "SINTAX dc_v\n"; }
                 | VAR variaveis error { yyerror(":"); } tipo_var PT_VIR dc_v
                 | VAR variaveis DOIS_PTS tipo_var error { yyerror(";"); } dc_v
+                | error {yyerror("var");} variaveis DOIS_PTS tipo_var PT_VIR dc_v
                 ;
 
 tipo_var:       REAL                                          { cout << "SINTAX tipo_var\n"; }
