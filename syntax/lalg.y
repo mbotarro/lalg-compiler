@@ -47,25 +47,34 @@ corpo:          dc T_BEGIN comandos END { cout << "SINTAX corpo\n"; }
                 ;
 
 dc:             dc_c dc_v dc_p                                { cout << "SINTAX dc\n"; }
+                | error {yyerror("const ou var");} dc_p
                 ;
 
 dc_c:                                                         { cout << "SINTAX DC_C\n"; }
                 | CONST ID IGUAL numero PT_VIR dc_c           { cout << "SINTAX DC_C\n"; }
+                | CONST error { yyerror("id"); } IGUAL numero PT_VIR dc_c
+                | CONST ID error { yyerror("="); } numero PT_VIR dc_c
+                | CONST ID IGUAL numero error { yyerror(";"); } dc_c
                 ;
 
 dc_v:                                                         {cout << "SINTAX dc_v\n"; } 
                 | VAR variaveis DOIS_PTS tipo_var PT_VIR dc_v {cout << "SINTAX dc_v\n"; }
+                | VAR variaveis error { yyerror(":"); } tipo_var PT_VIR dc_v
+                | VAR variaveis DOIS_PTS tipo_var error { yyerror(";"); } dc_v
                 ;
 
 tipo_var:       REAL                                          { cout << "SINTAX tipo_var\n"; }
                 | INT                                         { cout << "SINTAX tipo_var\n"; }
+                | error { yyerror("tipo de dado (integer ou real)"); }
                 ;
 
 variaveis:      ID mais_var                                   { cout << "SINTAX variaveis\n"; }
+                | error {yyerror("id");} mais_var
                 ;
 
 mais_var:                                                     { cout << "SINTAX mais_var\n"; }
                 | VIR variaveis                               { cout << "SINTAX mais_var\n"; }
+                | error variaveis {yyerror(",");}
                 ;
 
 dc_p:                                                         { cout << "SINTAX dc_p\n"; }
@@ -116,8 +125,8 @@ cmd:            READ ABRE_PAR variaveis FECHA_PAR             { cout << "SINTAX 
                 | ID ATRIB expressao                          { cout << "SINTAX cmd\n"; }
                 | ID lista_arg                                { cout << "SINTAX cmd\n"; }
                 | T_BEGIN comandos END                        { cout << "SINTAX cmd\n"; }
-                ;             
-        
+                ;
+                                
 condicao:       expressao relacao expressao                   { cout << "SINTAX condicao\n"; }
                 ;             
         
