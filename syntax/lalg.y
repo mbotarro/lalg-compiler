@@ -32,64 +32,155 @@
 %token DO FOR TO IF THEN ELSE
 
 %%
-programa:       PROGRAM ID PT_VIR corpo PT                    { cout << "SINTAX programa\n"; } 
 
-                | error { yyerror("program"); } ID PT_VIR corpo PT                       
-                | PROGRAM error { yyerror("id"); } PT_VIR corpo PT
-                | PROGRAM ID error { yyerror(";"); } corpo PT
-                | PROGRAM ID PT_VIR corpo error { yyerror("."); }
+// ========================================================================================================
+// programa
+// ========================================================================================================
+programa:       PROGRAM programa_0                    { cout << "SINTAX programa\n"; }
+                
+                // seguidores de PROGRAM
+
+                | error ID { yyerror("program"); } programa_1
+                | error PT_VIR { yyerror("program"); } corpo programa_2
+                | error PT  { yyerror("program"); }
+                ;                                                                       
+
+programa_0:     ID programa_1
+
+                // seguidores de ID
+
+                | error PT_VIR { yyerror("ID"); } corpo programa_2
+                | error PT { yyerror("ID"); }
+                ;
+
+programa_1:     PT_VIR corpo programa_2
+
+                // seguidores de PT_VIR
+
+                | error PT { yyerror(";"); }
+                ;
+
+programa_2:     PT
+                | error { yyerror("."); }
                 ;
 
 
+// ========================================================================================================
+// corpo
+// ========================================================================================================
 corpo:          dc T_BEGIN comandos END { cout << "SINTAX corpo\n"; }
-                | dc error { yyerror("begin"); } comandos END
                 | dc T_BEGIN comandos error { yyerror("end"); }
+                | dc error { yyerror("begin"); } comandos END
+                | dc error END { yyerror("begin"); }
                 ;
 
+// ========================================================================================================
+// dc
+// ========================================================================================================
 dc:             dc_c dc_v dc_p                                { cout << "SINTAX dc\n"; }
                 ;
-
+// ========================================================================================================
+// dc_c
+// ========================================================================================================
 dc_c:                                                         { cout << "SINTAX DC_C\n"; }
-                | CONST ID IGUAL numero PT_VIR dc_c           { cout << "SINTAX DC_C\n"; }
-                | CONST error { yyerror("id"); } IGUAL numero PT_VIR dc_c
-                | CONST ID error { yyerror("="); } numero PT_VIR dc_c
-                | CONST ID IGUAL numero error { yyerror(";"); } dc_c
+                | CONST dc_c_0                                { cout << "SINTAX DC_C\n"; }
+                | error ID { yyerror("const"); } dc_c_1
+                | error IGUAL { yyerror("const"); } numero dc_c_2
+                | error PT_VIR { yyerror("const"); } dc_c
+                | error { yyerrok; }
                 ;
 
+dc_c_0:         ID dc_c_1
+                | error IGUAL { yyerror("id"); } numero dc_c_2
+                | error PT_VIR { yyerror("id"); } dc_c
+                ;
+
+dc_c_1:         IGUAL numero dc_c_2
+                | error numero { yyerror("="); } dc_c_2
+                | error PT_VIR { yyerror("="); } dc_c
+                ;
+
+dc_c_2:         PT_VIR dc_c
+                | error { yyerror(";"); } dc_c
+                ;
+
+// ========================================================================================================
+// dc_v
+// ========================================================================================================
 dc_v:                                                         {cout << "SINTAX dc_v\n"; } 
-                | VAR variaveis DOIS_PTS tipo_var PT_VIR dc_v {cout << "SINTAX dc_v\n"; }
-                | VAR variaveis error { yyerror(":"); } tipo_var PT_VIR dc_v
-                | VAR variaveis DOIS_PTS tipo_var error { yyerror(";"); } dc_v
-                | error {yyerror("var");} variaveis DOIS_PTS tipo_var PT_VIR dc_v
+                | VAR variaveis dc_v_0                        {cout << "SINTAX dc_v\n"; }
+                | error variaveis { yyerror("var"); } dc_v_0
+                | error DOIS_PTS { yyerror("var"); } tipo_var dc_v_1
+                | error PT_VIR { yyerror("var"); } dc_v
+                | error { yyerrok; }
                 ;
 
+dc_v_0:         DOIS_PTS tipo_var dc_v_1
+                | error tipo_var { yyerror(":"); } dc_v_1
+                | error PT_VIR { yyerror(":"); } dc_v
+                ;
+
+dc_v_1:         PT_VIR dc_v
+                | error { yyerror(";"); } dc_v
+                ;
+
+// ========================================================================================================
+// tipo_var
+// ========================================================================================================
 tipo_var:       REAL                                          { cout << "SINTAX tipo_var\n"; }
                 | INT                                         { cout << "SINTAX tipo_var\n"; }
                 | error { yyerror("tipo de dado (integer ou real)"); }
                 ;
 
+
+// ========================================================================================================
+// variaveis
+// ========================================================================================================
 variaveis:      ID mais_var                                   { cout << "SINTAX variaveis\n"; }
-                | error {yyerror("id");} mais_var
+                | error VIR { yyerror("id"); } variaveis
+                | error { yyerror("id"); }
                 ;
 
 mais_var:                                                     { cout << "SINTAX mais_var\n"; }
                 | VIR variaveis                               { cout << "SINTAX mais_var\n"; }
-                | error variaveis {yyerror(",");}
+                | error ID { yyerror(","); } mais_var
+                | error { yyerrok; }
                 ;
 
+// ========================================================================================================
+// dc_p
+// ========================================================================================================
 dc_p:                                                         { cout << "SINTAX dc_p\n"; }
-                | PROCEDURE ID parametros PT_VIR corpo_p dc_p { cout << "SINTAX dc_p\n"; }
+                | PROCEDURE dc_p_0                            { cout << "SINTAX dc_p\n"; }
+                | error ID { yyerror("procedure"); } parametros dc_p_1
+                | error PT_VIR { yyerror("procedure"); } corpo_p dc_p
+                | error { yyerrok; }
+                ;
+
+dc_p_0:         ID parametros dc_p_1
+                | error parametros { yyerror("id"); } dc_p_1
+                ;
+
+dc_p_1:         PT_VIR corpo_p dc_p
+                | error corpo_p { yyerror(";"); } dc_p
                 ;
 
 parametros:                                                   { cout << "SINTAX parametros\n"; }
                 | ABRE_PAR lista_par FECHA_PAR                { cout << "SINTAX parametros\n"; }
+                | ABRE_PAR lista_par error { yyerror(")"); }
+                | error lista_par { yyerror("("); } FECHA_PAR
+                | error FECHA_PAR { yyerror("("); }
+                error { yyerrok; }
                 ;
 
 lista_par:      variaveis DOIS_PTS tipo_var mais_par          { cout << "SINTAX lista_par\n"; }
+                | variaveis error { yyerror(":"); } tipo_var mais_par
                 ;
 
 mais_par:                                                     { cout << "SINTAX mais_par\n"; }
                 | PT_VIR lista_par                            { cout << "SINTAX mais_par\n"; }
+                | error variaveis { yyerror(";"); } DOIS_PTS tipo_var mais_par
+                | error { yyerrok; }
                 ;
 
 corpo_p:        dc_loc T_BEGIN comandos END PT_VIR            { cout << "SINTAX corpo_p\n"; }
@@ -173,6 +264,7 @@ fator:          ID                                            { cout << "SINTAX 
         
 numero:         NUM_INT                                       { cout << "SINTAX numero\n"; }
                 | NUM_REAL                                    { cout << "SINTAX numero\n"; }
+                | error { yyerror("numero real ou inteiro"); }
                 ; 
 %%
 
@@ -192,7 +284,7 @@ int yywrap(){
 }
 
 int yyerror(const char *str){
-    //printf("ERROR searching for %d : %d", yychar, yylval);
+    // TODO: DO NOT SHOW WHEN str == "syntax error"
     cout << "Era esperado " << str << ", encontrado: " << yytext << endl; 
     error = true;
     return 1;
