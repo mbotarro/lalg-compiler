@@ -88,7 +88,7 @@ unordered_map<string, int> get_keywords(){
     keywords["integer"] = INT;
     keywords["procedure"] = PROCEDURE;
     keywords["begin"] = T_BEGIN;
-    keywords["end"] = END;
+    keywords["end"] = T_END;
     keywords["read"] = READ;
     keywords["write"] = WRITE;
     keywords["while"] = WHILE;
