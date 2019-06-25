@@ -1,5 +1,6 @@
 %{
     #include <iostream>
+    #include <string.h>
 
     extern int yylex();
     extern int yyerror(const char *str);
@@ -345,8 +346,9 @@ int yywrap(){
 }
 
 int yyerror(const char *str){
-    // TODO: DO NOT SHOW WHEN str == "syntax error"
-    cout << "Era esperado " << str << ", encontrado: " << yytext << endl; 
+    if (strcmp (str,"syntax error") != 0){
+        cout << "Era esperado " << str << ", encontrado: " << yytext << endl;
+    }
     error = true;
     return 1;
 }
