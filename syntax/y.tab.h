@@ -67,7 +67,7 @@
      INT = 283,
      PROCEDURE = 284,
      T_BEGIN = 285,
-     END = 286,
+     T_END = 286,
      READ = 287,
      WRITE = 288,
      WHILE = 289,
@@ -108,7 +108,7 @@
 #define INT 283
 #define PROCEDURE 284
 #define T_BEGIN 285
-#define END 286
+#define T_END 286
 #define READ 287
 #define WRITE 288
 #define WHILE 289

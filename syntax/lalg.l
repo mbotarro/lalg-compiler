@@ -63,19 +63,15 @@ digito [0-9]
 {digito}+                         { cout << yytext << " - " << "NUM_INT\n"; return NUM_INT; }
 {digito}+"."{digito}+             { cout << yytext << " - " << "NUM_REAL\n"; return NUM_REAL; }
 
- /*
-{letra}{17,}                                            			{ return T_ERRO_TAM_MAX; }
-"-"?{digito}+([a-zA-Z_]+{digito}*)+                     			{ return T_ERRO_NUM_INT_MAL_FORM; }
-[^a-zA-Z0-9 "{""("\n"+""-""*""/""="">""<""."]+({letra}|{digito})+  		{ return T_ERRO_ID_MAL_FORM; }
-"-"?{digito}+({letra}|{digito})*"."({digito}*{letra}+)*			{ return T_ERRO_NUM_REAL_MAL_FORM; }
-"-"?{digito}+({letra}+{digito}*)*"."({digito}|{letra})* 			{ return T_ERRO_NUM_REAL_MAL_FORM; }
-"-"?"."{digito}+					  			{ return T_ERRO_NUM_REAL_MAL_FORM; }
-"{".*[^"}"]\n                                           			{ return T_ERRO_COMENT_MAL_FORM; }
-.                                                       			{ return T_ERRO_SIM_N_REC; }
+ 
+{letra}{17,}                                            			{ cout << "LEXICO: erro_tamanho_maximo" << endl; }
+"-"?{digito}+([a-zA-Z_]+{digito}*)+                     			{ cout << "LEXICO: erro_numero_inteiro_mal_formado" << endl; }
+"-"?{digito}+({letra}|{digito})*"."({digito}*{letra}+)*			    { cout << "LEXICO : erro_numero_real_mal_formado" << endl; }
+"-"?{digito}+({letra}+{digito}*)*"."({digito}|{letra})* 			{ cout << "LEXICO : erro_numero_real_mal_formado" << endl; }
+"-"?"."{digito}+					  			                    { cout << "LEXICO : erro_numero_real_mal_formado" << endl; }
+"{".*[^"}"]\n                                           			{ cout << "LEXICO : erro_comentario_mal_formado" << endl; }
+.                                                       			{ cout << "LEXICO : erro_simbolo_nao_reconhecido" << endl; }
 
- */
-
- /* <<EOF>> { return T_EOF; } */
 %%
 
 unordered_map<string, int> get_keywords(){
