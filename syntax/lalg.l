@@ -66,7 +66,6 @@ digito [0-9]
  
 {letra}{17,}                                            			{ cout << "LEXICO: erro_tamanho_maximo" << endl; }
 "-"?{digito}+([a-zA-Z_]+{digito}*)+                     			{ cout << "LEXICO: erro_numero_inteiro_mal_formado" << endl; }
-[^a-zA-Z0-9 "{""("\n"+""-""*""/""="">""<""."]+({letra}|{digito})+  	{ cout << "LEXICO: erro_id_mal_formado" << endl; }
 "-"?{digito}+({letra}|{digito})*"."({digito}*{letra}+)*			    { cout << "LEXICO : erro_numero_real_mal_formado" << endl; }
 "-"?{digito}+({letra}+{digito}*)*"."({digito}|{letra})* 			{ cout << "LEXICO : erro_numero_real_mal_formado" << endl; }
 "-"?"."{digito}+					  			                    { cout << "LEXICO : erro_numero_real_mal_formado" << endl; }
